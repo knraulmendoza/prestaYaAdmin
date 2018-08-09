@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../validators/validation.dart';
+import 'package:flutter_toast/flutter_toast.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -24,6 +26,7 @@ class _LoginState extends State<Login> {
     //   msg: msg,
     //   gravity: ToastGravity.BOTTOM
     // );
+    FlutterToast.showToast(msg);
   }
 
   @override
@@ -109,6 +112,7 @@ class _LoginState extends State<Login> {
                             borderRadius: BorderRadius.circular(25.0)
                           ),
                           onPressed: () {
+                            toastMensaje('Ingresa el usuario');
                             validarForm();
                             // auth.logueo(_user, _pass)
                             // .then((user) {
@@ -120,13 +124,15 @@ class _LoginState extends State<Login> {
                         new FlatButton(
                           child: new Text('¿Olvido su contraseña?'),
                           textColor: Colors.white,
-                          onPressed: (){
+                          onPressed: () {
                             formKey.currentState.save();
                             print(_user);
                             if (_user.isEmpty) {
                               print('Ingresa el usuario');
+                              toastMensaje('Ingresa el usuario');
                             }else{
                               print('Verifique su correo electronico');
+                              toastMensaje('Verifique su correo electronico');
                             }
                           },
                         ),

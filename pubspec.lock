@@ -81,13 +81,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  fluttertoast:
+  flutter_toast:
     dependency: "direct main"
     description:
-      name: fluttertoast
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.7"
+      path: "."
+      ref: HEAD
+      resolved-ref: "879a4fafb54678f084c48843f14b0add0df35f29"
+      url: "https://github.com/IhorKlimov/Flutter-Toast.git"
+    source: git
+    version: "0.0.1"
   front_end:
     dependency: transitive
     description:
@@ -375,4 +377,3 @@ packages:
     version: "2.1.13"
 sdks:
   dart: ">=2.0.0-dev.52.0 <=2.0.0-dev.58.0.flutter-f981f09760"
-  flutter: ">=0.1.4 <2.0.0"
