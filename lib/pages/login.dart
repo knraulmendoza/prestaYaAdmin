@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
-
-class LoginScreen extends StatefulWidget {
+import '../validators/validation.dart';
+class Login extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginState createState() => _LoginState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginState extends State<Login> {
+  final formKey = new GlobalKey<FormState>();
+  String _user = '';
+  String _pass = '';
+  Validations validation = new Validations();
+  void validarForm(){
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print('Es valido $_user y $_pass');
+    } else {
+      print('No es valido');
+    }
+  }
+  toastMensaje(String msg){
+    // Fluttertoast.showToast(
+    //   msg: msg,
+    //   gravity: ToastGravity.BOTTOM
+    // );
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Container(
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      return Scaffold(
+        body: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             color: Colors.lightGreen,
@@ -21,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           padding: EdgeInsets.all(10.0),
           child: Form(
-            // key: formKey,
+            key: formKey,
             child: Center(
               child: SingleChildScrollView(
                 child: Column(
@@ -59,12 +80,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
-                          // onSaved: (value) => _user = value,
+                          onSaved: (value) => _user = value,
                           decoration: InputDecoration(labelText: 'Usuario' , labelStyle: TextStyle(color: Colors.white)),
-                          // validator: validation.validateEmail
+                          validator: validation.validateEmail
+                          
                         ),
                         TextFormField(
-                          // onSaved: (value) => _pass = value,
+                          onSaved: (value) => _pass = value,
                           obscureText: true,
                           decoration: InputDecoration(labelText: 'Contraseña', labelStyle: TextStyle(color: Colors.white)),
                           validator: (val) =>
@@ -87,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(25.0)
                           ),
                           onPressed: () {
-                            // validarForm();
+                            validarForm();
                             // auth.logueo(_user, _pass)
                             // .then((user) {
                             //   print('welcome ${user.email}');
@@ -98,7 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         new FlatButton(
                           child: new Text('¿Olvido su contraseña?'),
                           textColor: Colors.white,
-                          onPressed: (){},
+                          onPressed: (){
+                            formKey.currentState.save();
+                            print(_user);
+                            if (_user.isEmpty) {
+                              print('Ingresa el usuario');
+                            }else{
+                              print('Verifique su correo electronico');
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -109,6 +139,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-    );
-  }
+      );
+    }
 }
